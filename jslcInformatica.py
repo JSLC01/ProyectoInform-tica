@@ -1,8 +1,51 @@
 # Nombre: Jhon Sebastián Londoño Cárdenas.
 # Asignatura: Informática.
 # Proyecto final de la asignatura:
+import os
+def geneticSequenceMenu(genetic_list):
+    while True:
+        print("""
+        ----- Group_name-----
+        ----- App_name -----
+        ----- Genetic Sequence Menu -----
+        1. Create Genetic Sequence.
+        2. Delete Genetic Sequence.
+        3. Search Genetic Sequence.
+        4. Compare Genetic Sequence.
+        5. Build Complementary Genetic Sequence.
+        6. Display Stored Genetic Sequences.
+        7. Go back to the previous menu.
+        """)
+        try:
+            userOperation = int(input("Select an operatio from menu: "))
+
+        except ValueError:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("The type of the input is not valid. Please, try again.")
+        else:
+            if(userOperation < 1 or userOperation > 7):
+                print("ERROR: Invalida Selection.")
+            elif(userOperation == 1):
+                print("loquesea")
+            elif(userOperation == 2):
+                print("loquesea")
+            elif(userOperation == 3):
+                print("loquesea")
+            elif(userOperation == 4):
+                print("loquesea")
+            elif(userOperation == 5):
+                print("loquesea")
+            elif(userOperation == 6):
+                print("loquesea")
+            elif(userOperation == 7):
+                print("loquesea")
+
+def pressAnyKey(option):
+    if(option >= 1 and option <= 4):
+        input("Press any key to return to the main menu...")
 
 def mainMenu():
+    genetic_list = []
     while True:
         print("""
         ----- Group_name -----
@@ -16,16 +59,16 @@ def mainMenu():
         6. Close program. 
         """)
         try:    
-            userOption = int(input("Welcome. Please, select an option from the previous menu:"))
+            userOption = int(input("Welcome. Please, select an option from the previous menu: "))
 
         except ValueError:
-            print("\n")
-            print("\n")
-            print("\n")
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("The type of the input is not valid. Please, try again.")
 
         else:
-            if(userOption < 1 and userOption > 6):
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            if(userOption < 1 or userOption > 6):
                 print("ERROR: Invalid Selection.")
             
             elif(userOption == 1):
@@ -73,6 +116,7 @@ def mainMenu():
             -Loss of speech or mobility, or confusion
             -Chest pain.
                 """)
+
             elif(userOption == 3):
                 print("""
             ---------------------------------What is SARS-CoV-2?----------------------------------
@@ -82,6 +126,7 @@ def mainMenu():
             of a large family of viruses called coronaviruses. It is said that this disease is of
             zoonotic origin (transmision from animal to human).
                 """)
+
             elif(userOption == 4):
                 print("""
             ---------------------SARS-CoV-2 Genetic Sequence----------------------
@@ -142,13 +187,15 @@ def mainMenu():
             GACCAGTTGCTGTAGTTGTCTCAAGGGCTGTTGTTCTTGTGGATCCTGCTGCAAATTTGATGAAGACGAC
             TCTGAGCCAGTGCTCAAAGGAGTCAAATTACATTACACATAA
                 """)
+
             elif(userOption == 5):
                 print("Aquí va lo de la 5")
-            else:
-                print("\n")
-                print("\n")
-                print("End of the program")
-                break
 
+            elif(userOption == 6):
+                print("\n")
+                print("\n")
+                print("End of the program...")
+                break
+            pressAnyKey(userOption)
 mainMenu()
 
