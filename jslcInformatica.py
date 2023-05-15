@@ -2,6 +2,22 @@
 # Asignatura: Informática.
 # Proyecto final de la asignatura:
 import os
+def compareSequence(genetic_list, pattern, percent):
+    countSequences = 0
+    for chainPos in range(len(genetic_list)):
+        countBases = 0
+        if(len(pattern) == len(genetic_list[chainPos])):
+            for baseIdx in range(len(genetic_list[chainPos])):
+                if(genetic_list[chainPos][baseIdx] == pattern[baseIdx]):
+                    countBases += 1
+        similarity = countBases / len(pattern)
+        if(similarity >= percent):
+            countSequences += 1
+            print("There is a similar sequence in:", chainPos)
+
+    if(countSequences == 0):
+        print("No results found.")    
+
 def geneticSequenceMenu(genetic_list):
     while True:
         print("""
@@ -22,7 +38,9 @@ def geneticSequenceMenu(genetic_list):
         except ValueError:
             os.system('cls' if os.name == 'nt' else 'clear')
             print("The type of the input is not valid. Please, try again.")
+
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             if(userOperation < 1 or userOperation > 7):
                 print("ERROR: Invalida Selection.")
             elif(userOperation == 1):
@@ -36,9 +54,17 @@ def geneticSequenceMenu(genetic_list):
             elif(userOperation == 5):
                 print("loquesea")
             elif(userOperation == 6):
-                print("loquesea")
+                if(len(genetic_list) == 0):
+                    print("The list is empty. There are no elements to display...")
+                else:
+                    print("""
+                    ----- Sequences in the list ----- 
+                    """)
+                    for elem in genetic_list:                    
+                        print(elem)
+
             elif(userOperation == 7):
-                print("loquesea")
+                break
 
 def pressAnyKey(option):
     if(option >= 1 and option <= 4):
@@ -197,5 +223,5 @@ def mainMenu():
                 print("End of the program...")
                 break
             pressAnyKey(userOption)
-mainMenu()
+#mainMenu()
 
