@@ -150,7 +150,7 @@ def deleteSequence(genetic_list):
 def createSequence(genetic_list):
     userInput = input("Create sequence automatically? [Y/N] ")
     if(userInput == "Y" or userInput == "y"):
-        chainLen = int(input("Please, enter the length of the sequence (min length = 20)"))
+        chainLen = int(input("Please, enter the length of the sequence (min length = 20): "))
         seqType = input("Create DNA or RNA sequence?: ")
         if(seqType == "DNA" or seqType == "dna"):
             newDNA = generateRandomDNA(chainLen)
@@ -179,7 +179,7 @@ def createSequence(genetic_list):
 def geneticSequenceMenu(genetic_list):
     while True:
         print("""
-        ----- Group_name-----
+        ----- Group_name -----
         ----- App_name -----
         ----- Genetic Sequence Menu -----
         1. Create Genetic Sequence.
@@ -191,7 +191,7 @@ def geneticSequenceMenu(genetic_list):
         7. Go back to the previous menu.
         """)
         try:
-            userOperation = int(input("Select an operatio from menu: "))
+            userOperation = int(input("Select an operation from the menu: "))
 
         except ValueError:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -200,17 +200,20 @@ def geneticSequenceMenu(genetic_list):
         else:
             os.system('cls' if os.name == 'nt' else 'clear')
             if(userOperation < 1 or userOperation > 7):
-                print("ERROR: Invalida Selection.")
+                print("ERROR: Invalid Selection.")
             elif(userOperation == 1):
-                print("loquesea")
+                createSequence(genetic_list)
             elif(userOperation == 2):
-                print("loquesea")
+                deleteSequence(genetic_list)
             elif(userOperation == 3):
-                print("loquesea")
+                patternOp3 = input("Enter the sequence you want to search in the list: ")
+                searchSequence(genetic_list, patternOp3)
             elif(userOperation == 4):
-                print("loquesea")
+                patternOp4 = input("Enter the sequence you want to compare each element in the list: ")
+                percent = float(input("Enter the minimun similarity percentage (values between 0.0 and 1.0): "))
+                compareSequence(genetic_list, patternOp4, percent)
             elif(userOperation == 5):
-                print("loquesea")
+                invertOrComplement(genetic_list)
             elif(userOperation == 6):
                 if(len(genetic_list) == 0):
                     print("The list is empty. There are no elements to display...")
@@ -373,12 +376,11 @@ def mainMenu():
                 """)
 
             elif(userOption == 5):
-                print("Aquí va lo de la 5")
+                geneticSequenceMenu(genetic_list)
 
             elif(userOption == 6):
-                print("\n")
-                print("\n")
                 print("End of the program...")
                 break
+
             pressAnyKey(userOption)
-#mainMenu()
+mainMenu()
