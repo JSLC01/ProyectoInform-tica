@@ -2,6 +2,62 @@
 # Asignatura: Informática.
 # Proyecto final de la asignatura:
 import os
+import random
+
+def generateRandomDNA(dnaLen):
+    """This function creates a random DNA string with lenght
+    defined by dnaLen.
+    Args:
+        dnaLen[int]: Lenght of the desired DNA string.
+    Return:
+        -1[int]: If lenght < 0.
+        dnaString[str]: Randomly generated DNA string."""
+
+    if dnaLen < 0:
+        return -1
+
+    dnaString = ""
+
+    for i in range(dnaLen):
+        randomNumber = random.randint(1, 4)
+        if randomNumber == 1:
+            dnaString += "A"
+        elif randomNumber == 2:
+            dnaString += "C"
+        elif randomNumber == 3:
+            dnaString += "G"
+        else:
+            dnaString += "T"
+    
+    return dnaString
+
+def generateRandomRNA(rnaLen):
+    """This function creates a random RNA string with lenght
+    defined by rnaLen.
+    Args:
+        rnaLen[int]: Lenght of the desired RNA string.
+    Return:
+        -1[int]: If lenght < 0.
+        rnaString[str]: Randomly generated RNA string."""
+
+    if rnaLen < 0:
+        return -1
+
+    rnaString = ""
+
+    for i in range(rnaLen):
+        randomNumber = random.randint(1, 4)
+        if randomNumber == 1:
+            rnaString += "A"
+        elif randomNumber == 2:
+            rnaString += "C"
+        elif randomNumber == 3:
+            rnaString += "G"
+        else:
+            rnaString += "U"
+
+    return rnaString
+
 def compareSequence(genetic_list, pattern, percent):
     countSequences = 0
     for chainPos in range(len(genetic_list)):
@@ -17,6 +73,36 @@ def compareSequence(genetic_list, pattern, percent):
 
     if(countSequences == 0):
         print("No results found.")    
+
+def createSequence(genetic_list):
+    userInput = input("Create sequence automatically? [Y/N] ")
+    if(userInput == "Y" or userInput == "y"):
+        chainLen = int(input("Please, enter the length of the sequence (min length = 20)"))
+        seqType = input("Create DNA or RNA sequence?: ")
+        if(seqType == "DNA" or seqType == "dna"):
+            newDNA = generateRandomDNA(chainLen)
+            genetic_list.append(newDNA)
+            print("Sequence Added Successfully:", newDNA)
+            
+        elif(seqType == "RNA" or seqType == "rna"):
+            newRNA = generateRandomRNA(chainLen)
+            genetic_list.append(newRNA)
+            print("Sequence Added Successfully:", newRNA)
+
+        else:
+            print("Invalid sequence type selected.")
+
+    elif(userInput == "N" or userInput == "n"):
+        userChain = input("Please, enter manually the genetic sequence: ")
+        genetic_list.append(userChain)
+        print("Sequence Added Successfully:", userChain)
+
+    else:
+        print("Invalid option.")
+
+    return genetic_list
+
+#c = ["ACGTACGTACGT", "ACGUACGU", "ACGT"]
 
 def geneticSequenceMenu(genetic_list):
     while True:
