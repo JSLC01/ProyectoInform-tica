@@ -5,6 +5,36 @@
 import os
 import random
 
+def generateInverted(rnaSeq):
+    newRna = ""
+    for base in rnaSeq:
+        if(base == "A"):
+            newRna += "C"
+        elif(base == "U"):
+            newRna += "G"
+        elif(base == "C"):
+            newRna += "U"
+        else:
+            newRna += "A"
+    
+    return newRna
+
+
+def generateComplement(dnaSeq):
+    newDna = ""
+    for base in dnaSeq:
+        if(base == "A"):
+            newDna += "T"
+        elif(base == "T"):
+            newDna += "A"
+        elif(base == "C"):
+            newDna += "G"
+        else:
+            newDna += "C"
+    
+    return newDna
+
+
 def generateRandomDNA(dnaLen):
     """This function creates a random DNA string with lenght
     defined by dnaLen.
@@ -31,6 +61,7 @@ def generateRandomDNA(dnaLen):
             dnaString += "T"
     
     return dnaString
+
 
 def generateRandomRNA(rnaLen):
     """This function creates a random RNA string with lenght
@@ -59,6 +90,25 @@ def generateRandomRNA(rnaLen):
 
     return rnaString
 
+
+def invertOrComplement(genetic_list):
+    if(len(genetic_list) > 0):
+        if('U' in genetic_list[-1]):
+            invertedChain = generateInverted(genetic_list[-1])
+            genetic_list.append(invertedChain)
+            print("Creation of the Inverted Chain Completed:", invertedChain)
+        else:
+            complementChain = generateComplement(genetic_list[-1])
+            genetic_list.append(complementChain)
+            print("Creation of the Complementary Chain Completed:", complementChain)
+    else:
+        print("Empty List.")
+    
+    return genetic_list
+
+#c = ["ACGT", "ACGUACGU"]
+#print(invertOrComplement(c))
+
 def compareSequence(genetic_list, pattern, percent):
     countSequences = 0
     for chainPos in range(len(genetic_list)):
@@ -75,6 +125,7 @@ def compareSequence(genetic_list, pattern, percent):
     if(countSequences == 0):
         print("No results found.")
 
+
 def searchSequence(genetic_list, pattern):
     occurrences = 0
     for chainPos in range(len(genetic_list)):
@@ -85,7 +136,6 @@ def searchSequence(genetic_list, pattern):
     if(occurrences == 0):
         print("No results found.")
 
-#c = ["ACGT", "ACGUACGU", "ACGT"]
 
 def deleteSequence(genetic_list):
     if(len(genetic_list) > 0):
@@ -332,4 +382,3 @@ def mainMenu():
                 break
             pressAnyKey(userOption)
 #mainMenu()
-
