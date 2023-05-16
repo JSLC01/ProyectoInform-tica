@@ -1,6 +1,7 @@
 # Nombre: Jhon Sebastián Londoño Cárdenas.
 # Asignatura: Informática.
 # Proyecto final de la asignatura:
+
 import os
 import random
 
