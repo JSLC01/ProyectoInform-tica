@@ -74,6 +74,18 @@ def compareSequence(genetic_list, pattern, percent):
     if(countSequences == 0):
         print("No results found.")
 
+def searchSequence(genetic_list, pattern):
+    occurrences = 0
+    for chainPos in range(len(genetic_list)):
+        if(genetic_list[chainPos] == pattern):
+            occurrences += 1
+            print("Sequence Found at Position:", chainPos)
+
+    if(occurrences == 0):
+        print("No results found.")
+
+#c = ["ACGT", "ACGUACGU", "ACGT"]
+
 def deleteSequence(genetic_list):
     if(len(genetic_list) > 0):
         genetic_list.pop()
@@ -83,7 +95,6 @@ def deleteSequence(genetic_list):
     
     return genetic_list
 
-#c = ["ACGTACGTACGT", "ACGUACGU", "ACGT"]
 
 def createSequence(genetic_list):
     userInput = input("Create sequence automatically? [Y/N] ")
