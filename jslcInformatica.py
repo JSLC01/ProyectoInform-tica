@@ -1,9 +1,40 @@
 # Nombre: Jhon Sebastián Londoño Cárdenas.
 # Asignatura: Informática.
-# Proyecto final de la asignatura:
+# Proyecto final de la asignatura.
 
 import os
 import random
+#Jhon Sebastián Londoño Cárdenas.
+def determineSeqType(string):
+    """
+    Objective: this function determines if a string is a DNA, RNA or none of the previous.
+    Input: a string that can be DNA, RNA of something else.
+    Output: 1 if it is a DNA string, 2 if it is a RNA string or -1 if it is something different.
+    """
+    ans = -1 # the variable that stores the answer.
+    # If the argument is a string and is not an empty string then go ahead with the process.
+    if(type(string) == str and len(string) > 0):
+        
+        adnBases = ['A', 'T', 'C', 'G'] #Define a list with the bases for the DNA.
+        arnBases = ['A', 'U', 'C', 'G'] #Define a list with the bases for the RNA.
+        adn = True # boolean value to determine if it is or not DNA string.
+        arn = True # boolean value to determine if it is or not RNA string.
+        # Go through all the letters.
+        for i in string:
+            #If the letter is not part of the DNA list then put the boolean variable in False.
+            if(i not in adnBases):
+                adn = False                
+            #If the letter is not part of the RNA list then put the boolean variable in False.
+            if(i not in arnBases):
+                arn = False
+        # if adn = True, then ans is 1.
+        if(adn):
+            ans = 1
+        # if arn = True, then ans is 2.
+        elif(arn):
+            ans = 2
+
+    return ans
 
 def generateInverted(rnaSeq):
     newRna = ""
@@ -147,31 +178,43 @@ def deleteSequence(genetic_list):
     return genetic_list
 
 
-def createSequence(genetic_list):
-    userInput = input("Create sequence automatically? [Y/N] ")
-    if(userInput == "Y" or userInput == "y"):
-        chainLen = int(input("Please, enter the length of the sequence (min length = 20): "))
-        seqType = input("Create DNA or RNA sequence?: ")
-        if(seqType == "DNA" or seqType == "dna"):
-            newDNA = generateRandomDNA(chainLen)
-            genetic_list.append(newDNA)
-            print("Sequence Added Successfully:", newDNA)
-            
-        elif(seqType == "RNA" or seqType == "rna"):
-            newRNA = generateRandomRNA(chainLen)
-            genetic_list.append(newRNA)
-            print("Sequence Added Successfully:", newRNA)
+def createSequence(genetic_list):    
+    while True:
+        userInput = input("Create sequence automatically? [Y/N] ")
+        if(userInput == "Y" or userInput == "y"):
+            chainLen = int(input("Please, enter the length of the sequence (min length = 20): "))            
+
+            while True:
+                seqType = input("Create DNA or RNA sequence?: ")
+                if(seqType == "DNA" or seqType == "dna"):
+                    newDNA = generateRandomDNA(chainLen)
+                    genetic_list.append(newDNA)
+                    print("Sequence Added Successfully:", newDNA)
+                    break
+                    
+                elif(seqType == "RNA" or seqType == "rna"):
+                    newRNA = generateRandomRNA(chainLen)
+                    genetic_list.append(newRNA)
+                    print("Sequence Added Successfully:", newRNA)
+                    break
+
+                else:
+                    print("Invalid Input.")
+            break
+
+        elif(userInput == "N" or userInput == "n"):
+            while True:
+                userChain = input("Please, enter manually the genetic sequence: ")
+                if(determineSeqType(userChain) == -1):
+                    print("Invalid Sequence, try again...")
+                else:
+                    break
+            genetic_list.append(userChain)
+            print("Sequence Added Successfully:", userChain)
+            break
 
         else:
-            print("Invalid sequence type selected.")
-
-    elif(userInput == "N" or userInput == "n"):
-        userChain = input("Please, enter manually the genetic sequence: ")
-        genetic_list.append(userChain)
-        print("Sequence Added Successfully:", userChain)
-
-    else:
-        print("Invalid option.")
+            print("Invalid Input.")
 
     return genetic_list
 
@@ -206,11 +249,26 @@ def geneticSequenceMenu(genetic_list):
             elif(userOperation == 2):
                 deleteSequence(genetic_list)
             elif(userOperation == 3):
-                patternOp3 = input("Enter the sequence you want to search in the list: ")
+                while True:
+                    patternOp3 = input("Enter the sequence you want to search in the list: ")
+                    if(determineSeqType(patternOp3) == -1):
+                        print("Invalid Sequence, try again...")
+                    else:
+                        break
                 searchSequence(genetic_list, patternOp3)
             elif(userOperation == 4):
-                patternOp4 = input("Enter the sequence you want to compare each element in the list: ")
-                percent = float(input("Enter the minimun similarity percentage (values between 0.0 and 1.0): "))
+                while True:
+                    patternOp4 = input("Enter the sequence you want to compare each element in the list: ")
+                    if(determineSeqType(patternOp4) == -1):
+                        print("Invalid Sequence, try again...")
+                    else:
+                        break
+                while True:
+                    percent = float(input("Enter the minimun similarity percentage (values between 0.0 and 1.0): "))
+                    if(percent > 1.0 or percent < 0.0):
+                        print("Invalid Percentage.")
+                    else:
+                        break
                 compareSequence(genetic_list, patternOp4, percent)
             elif(userOperation == 5):
                 invertOrComplement(genetic_list)
@@ -308,7 +366,7 @@ def mainMenu():
                 print("""
             ---------------------------------What is SARS-CoV-2?----------------------------------
             
-            Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) is the virus that causes
+            Severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) is the virus that causes
             a respiratory disease called coronavirus disease 19 (COVID-19). SARS-CoV-2 is a member
             of a large family of viruses called coronaviruses. It is said that this disease is of
             zoonotic origin (transmision from animal to human).
